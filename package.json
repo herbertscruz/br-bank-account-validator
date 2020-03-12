@@ -1,0 +1,34 @@
+{
+  "name": "br-bank-account-validator",
+  "version": "1.0.0",
+  "description": "Javascript validator for Brazilian bank accounts",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix .",
+    "test": "mocha",
+    "posttest": "yarn lint && yarn audit"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.2.1",
+    "eslint-config-loopback": "^13.1.0",
+    "mocha": "^6.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/herbertscruz/br-bank-account-validator.git"
+  },
+  "keywords": [
+    "bank",
+    "account",
+    "validator",
+    "brazil"
+  ],
+  "author": "Herberts Cruz <herbertscruz@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/herbertscruz/br-bank-account-validator/issues"
+  },
+  "homepage": "https://github.com/herbertscruz/br-bank-account-validator#readme"
+}
