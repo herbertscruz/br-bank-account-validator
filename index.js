@@ -1,4 +1,5 @@
 
+const http = require('http');
 const BancoDoBrasilValidator = require(
   './lib/banco-do-brasil-validador',
 );
@@ -37,7 +38,7 @@ module.exports = function validate(
   const validator = new Validator(bankId);
 
   if (!genericValidator.bankIdIsValid(bankId)) {
-    description = 'Invalid bank';
+    description = genericValidator.branchIdMsgError();
     errors.push({description, code: 'INVALID_BANK_NUMBER'});
   }
 
@@ -83,9 +84,12 @@ module.exports = function validate(
     }
   }
 
-  // if (errors.length === 0) {
-  //   valid();
-  // } else {
-  //   invalid({errors: errors});
-  // }
+  if (errors.length > 0) {
+    const status = 412;
+    const error = new Error();
+    error.name = http.STATUS_CODES[status];
+    error.status = status;
+    error.message = 'The `bank account` is not valid.';
+    error.details = errors;
+  }
 };
