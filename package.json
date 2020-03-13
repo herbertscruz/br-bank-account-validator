@@ -30,5 +30,6 @@
   "bugs": {
     "url": "https://github.com/herbertscruz/br-bank-account-validator/issues"
   },
-  "homepage": "https://github.com/herbertscruz/br-bank-account-validator#readme"
+  "homepage": "https://github.com/herbertscruz/br-bank-account-validator#readme",
+  "dependencies": {}
 }

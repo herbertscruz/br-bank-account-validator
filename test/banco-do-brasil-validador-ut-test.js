@@ -1,15 +1,15 @@
 
 const assert = require('chai').assert;
 const bankAccount = require('./bank-accounts.json');
-const CommonBankAccountValidator = require(
-  '../lib/common-bank-account-validator',
+const BancoDoBrasilValidator = require(
+  '../lib/banco-do-brasil-validador',
 );
 
 /**
  * Unit Tests
  */
-describe('lib/common-bank-account-validator.js', () => {
-  const validator = new CommonBankAccountValidator();
+describe('lib/banco-do-brasil-validador.js', () => {
+  const validator = new BancoDoBrasilValidator();
 
   describe('bankNumberIsValid', () => {
     it('should return true', async () => {

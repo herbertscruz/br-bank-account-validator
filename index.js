@@ -13,7 +13,7 @@ const GenericBankAccountValidator = require(
   './lib/generic-bank-account-validator',
 );
 
-const Validator = function(bankId) {
+const Validator = function(bankNumber) {
   const validators = {
     '001': BancoDoBrasilValidator,
     // '237': BradescoValidator,
@@ -24,64 +24,43 @@ const Validator = function(bankId) {
     // '041': BanrisulValidator,
   };
 
-  if (validators[bankId]) return validators[bankId];
+  if (validators[bankNumber]) return validators[bankNumber];
   return GenericBankAccountValidator;
 };
 
 module.exports = function validate(
-  bankId, branchNumber, branchCheckNumber,
+  bankNumber, branchNumber, branchCheckNumber,
   accountNumber, accountCheckNumber,
 ) {
+  const validator = new Validator(bankNumber);
   const errors = [];
-  let description;
-  const genericValidator = new GenericBankAccountValidator();
-  const validator = new Validator(bankId);
 
-  if (!genericValidator.bankIdIsValid(bankId)) {
-    description = genericValidator.branchIdMsgError();
-    errors.push({description, code: 'INVALID_BANK_NUMBER'});
+  if (!validator.bankNumberIsValid(bankNumber)) {
+    errors.push(validator.bankNumberError());
   }
 
   if (!validator.branchNumberIsValid(branchNumber)) {
-    description = validator.branchNumberMsgError();
-    errors.push({description, code: 'INVALID_BRANCH_NUMBER'});
+    errors.push(validator.branchNumberError());
   }
 
   if (!validator.branchCheckNumberIsValid(branchCheckNumber)) {
-    description = validator.branchCheckNumberMsgError();
-    errors.push({description, code: 'INVALID_BRANCH_CHECK_NUMBER'});
+    errors.push(validator.branchCheckNumberError());
   }
 
   if (!validator.accountNumberIsValid(accountNumber)) {
-    description = validator.accountNumberMsgError();
-    errors.push({description, code: 'INVALID_ACCOUNT_NUMBER'});
+    errors.push(validator.accountNumberError());
   }
 
   if (!validator.accountCheckNumberIsValid(accountCheckNumber)) {
-    description = validator.accountCheckNumberMsgError();
-    errors.push({description, code: 'INVALID_ACCOUNT_CHECK_NUMBER'});
+    errors.push(validator.accountCheckNumberError());
   }
 
-  if (
-    validator.branchNumberIsValid(branchNumber) &&
-    validator.branchCheckNumberIsValid(branchCheckNumber)
-  ) {
-    if (!validator.branchCheckNumberMatch(branchNumber, branchCheckNumber)) {
-      description = 'The branch check number does not match ' +
-        'the completed branch number';
-      errors.push({description, code: 'BRANCH_CHECK_NUMBER_DONT_MATCH'});
-    }
+  if (!validator.branchCheckNumberMatch(branchNumber, branchCheckNumber)) {
+    errors.push(validator.branchCheckNumberMatchError());
   }
 
-  if (
-    validator.accountNumberIsValid(accountNumber) &&
-    validator.accountCheckNumberIsValid(accountCheckNumber)
-  ) {
-    if (!validator.accountCheckNumberMatch(accountNumber, accountCheckNumber)) {
-      description = 'The account check number does not match ' +
-        'the completed branch/account number';
-      errors.push({description, code: 'ACCOUNT_CHECK_NUMBER_DONT_MATCH'});
-    }
+  if (!validator.accountCheckNumberMatch(accountNumber, accountCheckNumber)) {
+    errors.push(validator.accountCheckNumberMatchError());
   }
 
   if (errors.length > 0) {
