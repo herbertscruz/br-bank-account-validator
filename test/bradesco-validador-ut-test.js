@@ -1,20 +1,20 @@
 
 const assert = require('chai').assert;
 const bankAccount = require('./bank-accounts.json');
-const CommonBankAccountValidator = require(
-  '../lib/common-bank-account-validator',
+const BradescoValidator = require(
+  '../lib/bradesco-validator',
 );
 
 /**
  * Unit Tests
  */
-describe('lib/common-bank-account-validator.js', () => {
-  const validator = new CommonBankAccountValidator();
+describe('lib/bradesco-validador.js', () => {
+  const validator = new BradescoValidator();
 
   describe('bankNumberIsValid', () => {
     it('should return true', async () => {
       const result = validator.bankNumberIsValid(
-        bankAccount.bancoDoBrasil.bankNumber,
+        bankAccount.bradesco.bankNumber,
       );
       assert.equal(result, true);
     });
@@ -30,14 +30,14 @@ describe('lib/common-bank-account-validator.js', () => {
   describe('branchNumberIsValid', () => {
     it('should return true', async () => {
       const result = validator.branchNumberIsValid(
-        bankAccount.bancoDoBrasil.branchNumber,
+        bankAccount.bradesco.branchNumber,
       );
       assert.equal(result, true);
     });
 
     it('should return false', async () => {
       const result = validator.branchNumberIsValid(
-        'xptoabc',
+        bankAccount.bancoDoBrasil.branchNumber + '0',
       );
       assert.equal(result, false);
     });
@@ -46,14 +46,14 @@ describe('lib/common-bank-account-validator.js', () => {
   describe('branchCheckNumberIsValid', () => {
     it('should return true', async () => {
       const result = validator.branchCheckNumberIsValid(
-        bankAccount.bancoDoBrasil.branchCheckNumber,
+        bankAccount.bradesco.branchCheckNumber,
       );
       assert.equal(result, true);
     });
 
     it('should return false', async () => {
       const result = validator.branchCheckNumberIsValid(
-        'xp',
+        bankAccount.bancoDoBrasil.branchCheckNumber + '0',
       );
       assert.equal(result, false);
     });
@@ -62,14 +62,14 @@ describe('lib/common-bank-account-validator.js', () => {
   describe('accountNumberIsValid', () => {
     it('should return true', async () => {
       const result = validator.accountNumberIsValid(
-        bankAccount.bancoDoBrasil.accountNumber,
+        bankAccount.bradesco.accountNumber,
       );
       assert.equal(result, true);
     });
 
     it('should return false', async () => {
       const result = validator.accountNumberIsValid(
-        'xptoabc',
+        bankAccount.bancoDoBrasil.accountNumber,
       );
       assert.equal(result, false);
     });
@@ -78,7 +78,7 @@ describe('lib/common-bank-account-validator.js', () => {
   describe('accountCheckNumberIsValid', () => {
     it('should return true', async () => {
       const result = validator.accountCheckNumberIsValid(
-        bankAccount.bancoDoBrasil.accountCheckNumber,
+        bankAccount.bradesco.accountCheckNumber,
       );
       assert.equal(result, true);
     });
@@ -94,16 +94,16 @@ describe('lib/common-bank-account-validator.js', () => {
   describe('branchCheckNumberMatch', () => {
     it('should return true', async () => {
       const result = validator.branchCheckNumberMatch(
-        bankAccount.bancoDoBrasil.branchNumber,
-        bankAccount.bancoDoBrasil.branchCheckNumber,
+        bankAccount.bradesco.branchNumber,
+        bankAccount.bradesco.branchCheckNumber,
       );
       assert.equal(result, true);
     });
 
     it('should return false', async () => {
       const result = validator.branchCheckNumberMatch(
-        'xptoabc',
-        'xp',
+        bankAccount.bancoDoBrasil.branchNumber,
+        bankAccount.bancoDoBrasil.branchCheckNumber + '0',
       );
       assert.equal(result, false);
     });
@@ -112,16 +112,18 @@ describe('lib/common-bank-account-validator.js', () => {
   describe('accountCheckNumberMatch', () => {
     it('should return true', async () => {
       const result = validator.accountCheckNumberMatch(
-        bankAccount.bancoDoBrasil.accountNumber,
-        bankAccount.bancoDoBrasil.accountCheckNumber,
+        bankAccount.bradesco.branchNumber,
+        bankAccount.bradesco.accountNumber,
+        bankAccount.bradesco.accountCheckNumber,
       );
       assert.equal(result, true);
     });
 
     it('should return false', async () => {
       const result = validator.accountCheckNumberIsValid(
-        'xptoabc',
-        'xp',
+        bankAccount.bancoDoBrasil.branchNumber,
+        bankAccount.bancoDoBrasil.accountNumber,
+        bankAccount.bancoDoBrasil.accountCheckNumber,
       );
       assert.equal(result, false);
     });

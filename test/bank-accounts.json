@@ -1,9 +1,23 @@
 {
   "bancoDoBrasil": {
     "bankNumber": "001",
-    "branchNumber": "6998",
-    "branchCheckNumber": "1",
-    "accountNumber": "00067296",
-    "accountCheckNumber": "3"
+    "branchNumber": "3344",
+    "branchCheckNumber": "8",
+    "accountNumber": "00005184",
+    "accountCheckNumber": "5"
+  },
+  "bradesco": {
+    "bankNumber": "237",
+    "branchNumber": "3391",
+    "branchCheckNumber": null,
+    "accountNumber": "0049800",
+    "accountCheckNumber": "9"
+  },
+  "itau": {
+    "bankNumber": "341",
+    "branchNumber": "0910",
+    "branchCheckNumber": null,
+    "accountNumber": "00988",
+    "accountCheckNumber": "5"
   }
 }

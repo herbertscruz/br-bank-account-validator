@@ -21,7 +21,7 @@ describe('lib/banco-do-brasil-validador.js', () => {
 
     it('should return false', async () => {
       const result = validator.bankNumberIsValid(
-        'xptoabc',
+        bankAccount.bradesco.bankNumber + '0',
       );
       assert.equal(result, false);
     });
@@ -37,7 +37,7 @@ describe('lib/banco-do-brasil-validador.js', () => {
 
     it('should return false', async () => {
       const result = validator.branchNumberIsValid(
-        'xptoabc',
+        bankAccount.bradesco.branchNumber + '0',
       );
       assert.equal(result, false);
     });
@@ -53,7 +53,7 @@ describe('lib/banco-do-brasil-validador.js', () => {
 
     it('should return false', async () => {
       const result = validator.branchCheckNumberIsValid(
-        'xp',
+        bankAccount.bradesco.branchCheckNumber + '0',
       );
       assert.equal(result, false);
     });
@@ -69,7 +69,7 @@ describe('lib/banco-do-brasil-validador.js', () => {
 
     it('should return false', async () => {
       const result = validator.accountNumberIsValid(
-        'xptoabc',
+        bankAccount.bradesco.accountNumber,
       );
       assert.equal(result, false);
     });
@@ -85,7 +85,7 @@ describe('lib/banco-do-brasil-validador.js', () => {
 
     it('should return false', async () => {
       const result = validator.accountCheckNumberIsValid(
-        'xp',
+        bankAccount.bradesco.accountCheckNumber + '0',
       );
       assert.equal(result, false);
     });
@@ -102,8 +102,8 @@ describe('lib/banco-do-brasil-validador.js', () => {
 
     it('should return false', async () => {
       const result = validator.branchCheckNumberMatch(
-        'xptoabc',
-        'xp',
+        bankAccount.bradesco.branchNumber,
+        bankAccount.bradesco.branchCheckNumber,
       );
       assert.equal(result, false);
     });
@@ -112,6 +112,7 @@ describe('lib/banco-do-brasil-validador.js', () => {
   describe('accountCheckNumberMatch', () => {
     it('should return true', async () => {
       const result = validator.accountCheckNumberMatch(
+        bankAccount.bancoDoBrasil.branchNumber,
         bankAccount.bancoDoBrasil.accountNumber,
         bankAccount.bancoDoBrasil.accountCheckNumber,
       );
@@ -120,8 +121,9 @@ describe('lib/banco-do-brasil-validador.js', () => {
 
     it('should return false', async () => {
       const result = validator.accountCheckNumberIsValid(
-        'xptoabc',
-        'xp',
+        bankAccount.bradesco.branchNumber,
+        bankAccount.bradesco.accountNumber,
+        bankAccount.bradesco.accountCheckNumber,
       );
       assert.equal(result, false);
     });
